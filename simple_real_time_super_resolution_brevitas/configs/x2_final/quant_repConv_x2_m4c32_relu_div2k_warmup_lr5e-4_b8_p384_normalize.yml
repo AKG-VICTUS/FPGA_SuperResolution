@@ -1,0 +1,59 @@
+model: 'QuantPlainRepConv'
+comment: 'QAT_X2_BREVITAS'
+
+## model parameters
+scale: 2
+colors: 3
+m_plainsr: 4
+c_plainsr: 32
+with_bn: 0
+act_type: 'relu'
+pretrain:
+
+## quantization parameters
+bit_width: 8                        # valid range 8 → 6 → 4
+weight_quant: 'Int8WeightPerTensorFloat'
+act_quant: 'Uint8ActPerTensorFloat'  # updated name for ReLU-compatible activations
+
+## optionally resume pretrained FP model
+#pretrain: './experiments/Val_X2_Best/models/model_x2_best_submission.pt'
+
+## loss function & optimizer
+loss: 'l1'
+
+optimizer: adam
+lr: 0.0001
+wd: 0.0
+
+## scheduler:
+scheduler: 'CosineAnnealingWarmRestarts'
+decays: [200, 400, 600]
+gamma: 0.5
+min_lr: 0.000001
+
+## training parameters
+epochs: 800
+patch_size: 384
+batch_size: 8
+data_repeat: 20
+data_augment: 1
+
+log_name: ''
+log_every: 100
+test_every: 1
+log_path: "./experiments/QAT_X2_Brevitas"
+save_val_image: False
+wandb: False
+
+## precision and normalization
+mixed_pred: False
+normalize: True
+
+## hardware specification
+threads: 1
+
+## data specification
+data_path: './dataset/SR/RLSR/DIV2K_X2/'
+test_path: './dataset/SR/RLSR/val_phase_X2/'
+eval_sets: ['DIV2K']
+

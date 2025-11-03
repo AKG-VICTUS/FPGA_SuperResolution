@@ -1,0 +1,3323 @@
+QuantPlainRepConv(
+  (head): QuantConv3X3(
+    (quant_in): QuantIdentity(
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (act_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (fused_activation_quant_proxy): FusedActivationQuantProxy(
+          (activation_impl): Identity()
+          (tensor_quant): RescalingIntQuant(
+            (int_quant): IntQuant(
+              (float_to_int_impl): RoundSte()
+              (tensor_clamp_impl): TensorClamp()
+              (delay_wrapper): DelayWrapper(
+                (delay_impl): _NoDelay()
+              )
+              (input_view_impl): Identity()
+            )
+            (scaling_impl): ParameterFromRuntimeStatsScaling(
+              (stats_input_view_shape_impl): OverTensorView()
+              (stats): _Stats(
+                (stats_impl): AbsPercentile()
+              )
+              (abs_value): _AbsValue(
+                (apply_abs): Abs()
+              )
+              (restrict_scaling): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_threshold): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_scale_threshold): _RestrictValue(
+                (restrict_value_impl): Identity()
+              )
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+              (restrict_inplace_preprocess): Identity()
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+            )
+            (int_scaling_impl): IntScaling()
+            (zero_point_impl): ZeroZeroPoint(
+              (zero_point): StatelessBuffer()
+            )
+            (msb_clamp_bit_width_impl): BitWidthConst(
+              (bit_width): StatelessBuffer()
+            )
+          )
+        )
+      )
+    )
+    (conv): QuantConv2d(
+      3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (output_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (weight_quant): WeightQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (tensor_quant): RescalingIntQuant(
+          (int_quant): IntQuant(
+            (float_to_int_impl): RoundSte()
+            (tensor_clamp_impl): TensorClampSte()
+            (delay_wrapper): DelayWrapper(
+              (delay_impl): _NoDelay()
+            )
+            (input_view_impl): Identity()
+          )
+          (scaling_impl): StatsFromParameterScaling(
+            (parameter_list_stats): _ParameterListStats(
+              (first_tracked_param): _ViewParameter(
+                (view_shape_impl): OverTensorView()
+              )
+              (stats): _Stats(
+                (stats_impl): AbsMax()
+              )
+            )
+            (stats_scaling_impl): _StatsScaling(
+              (affine_rescaling): Identity()
+              (restrict_clamp_scaling): _RestrictClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+                (restrict_value_impl): FloatRestrictValue()
+                (apply_abs): Abs()
+              )
+              (restrict_clamp_threshold): _RestrictClampValue(
+                (clamp_min_ste): Identity()
+                (restrict_value_impl): FloatRestrictValue()
+                (apply_abs): Abs()
+              )
+              (restrict_clamp_scale_threshold): _RestrictClampValue(
+                (clamp_min_ste): Identity()
+                (restrict_value_impl): Identity()
+                (apply_abs): Abs()
+              )
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+            )
+          )
+          (int_scaling_impl): IntScaling()
+          (zero_point_impl): ZeroZeroPoint(
+            (zero_point): StatelessBuffer()
+          )
+          (msb_clamp_bit_width_impl): BitWidthConst(
+            (bit_width): StatelessBuffer()
+          )
+        )
+      )
+      (bias_quant): BiasQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+    )
+    (act): QuantReLU(
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (act_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (fused_activation_quant_proxy): FusedActivationQuantProxy(
+          (activation_impl): ReLU()
+          (tensor_quant): RescalingIntQuant(
+            (int_quant): IntQuant(
+              (float_to_int_impl): RoundSte()
+              (tensor_clamp_impl): TensorClamp()
+              (delay_wrapper): DelayWrapper(
+                (delay_impl): _NoDelay()
+              )
+              (input_view_impl): Identity()
+            )
+            (scaling_impl): ParameterFromRuntimeStatsScaling(
+              (stats_input_view_shape_impl): OverTensorView()
+              (stats): _Stats(
+                (stats_impl): AbsPercentile()
+              )
+              (abs_value): _AbsValue(
+                (apply_abs): Abs()
+              )
+              (restrict_scaling): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_threshold): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_scale_threshold): _RestrictValue(
+                (restrict_value_impl): Identity()
+              )
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+              (restrict_inplace_preprocess): Identity()
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+            )
+            (int_scaling_impl): IntScaling()
+            (zero_point_impl): ZeroZeroPoint(
+              (zero_point): StatelessBuffer()
+            )
+            (msb_clamp_bit_width_impl): BitWidthConst(
+              (bit_width): StatelessBuffer()
+            )
+          )
+        )
+      )
+    )
+  )
+  (backbone): Sequential(
+    (0): Sequential(
+      (0): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+      (1): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    (1): Sequential(
+      (0): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+      (1): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    (2): Sequential(
+      (0): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+      (1): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    (3): Sequential(
+      (0): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+      (1): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+  (transition): QuantConv3X3(
+    (quant_in): QuantIdentity(
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (act_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (fused_activation_quant_proxy): FusedActivationQuantProxy(
+          (activation_impl): Identity()
+          (tensor_quant): RescalingIntQuant(
+            (int_quant): IntQuant(
+              (float_to_int_impl): RoundSte()
+              (tensor_clamp_impl): TensorClamp()
+              (delay_wrapper): DelayWrapper(
+                (delay_impl): _NoDelay()
+              )
+              (input_view_impl): Identity()
+            )
+            (scaling_impl): ParameterFromRuntimeStatsScaling(
+              (stats_input_view_shape_impl): OverTensorView()
+              (stats): _Stats(
+                (stats_impl): AbsPercentile()
+              )
+              (abs_value): _AbsValue(
+                (apply_abs): Abs()
+              )
+              (restrict_scaling): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_threshold): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_scale_threshold): _RestrictValue(
+                (restrict_value_impl): Identity()
+              )
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+              (restrict_inplace_preprocess): Identity()
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+            )
+            (int_scaling_impl): IntScaling()
+            (zero_point_impl): ZeroZeroPoint(
+              (zero_point): StatelessBuffer()
+            )
+            (msb_clamp_bit_width_impl): BitWidthConst(
+              (bit_width): StatelessBuffer()
+            )
+          )
+        )
+      )
+    )
+    (conv): QuantConv2d(
+      32, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (output_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (weight_quant): WeightQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (tensor_quant): RescalingIntQuant(
+          (int_quant): IntQuant(
+            (float_to_int_impl): RoundSte()
+            (tensor_clamp_impl): TensorClampSte()
+            (delay_wrapper): DelayWrapper(
+              (delay_impl): _NoDelay()
+            )
+            (input_view_impl): Identity()
+          )
+          (scaling_impl): StatsFromParameterScaling(
+            (parameter_list_stats): _ParameterListStats(
+              (first_tracked_param): _ViewParameter(
+                (view_shape_impl): OverTensorView()
+              )
+              (stats): _Stats(
+                (stats_impl): AbsMax()
+              )
+            )
+            (stats_scaling_impl): _StatsScaling(
+              (affine_rescaling): Identity()
+              (restrict_clamp_scaling): _RestrictClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+                (restrict_value_impl): FloatRestrictValue()
+                (apply_abs): Abs()
+              )
+              (restrict_clamp_threshold): _RestrictClampValue(
+                (clamp_min_ste): Identity()
+                (restrict_value_impl): FloatRestrictValue()
+                (apply_abs): Abs()
+              )
+              (restrict_clamp_scale_threshold): _RestrictClampValue(
+                (clamp_min_ste): Identity()
+                (restrict_value_impl): Identity()
+                (apply_abs): Abs()
+              )
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+            )
+          )
+          (int_scaling_impl): IntScaling()
+          (zero_point_impl): ZeroZeroPoint(
+            (zero_point): StatelessBuffer()
+          )
+          (msb_clamp_bit_width_impl): BitWidthConst(
+            (bit_width): StatelessBuffer()
+          )
+        )
+      )
+      (bias_quant): BiasQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+    )
+    (act): QuantReLU(
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (act_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (fused_activation_quant_proxy): FusedActivationQuantProxy(
+          (activation_impl): ReLU()
+          (tensor_quant): RescalingIntQuant(
+            (int_quant): IntQuant(
+              (float_to_int_impl): RoundSte()
+              (tensor_clamp_impl): TensorClamp()
+              (delay_wrapper): DelayWrapper(
+                (delay_impl): _NoDelay()
+              )
+              (input_view_impl): Identity()
+            )
+            (scaling_impl): ParameterFromRuntimeStatsScaling(
+              (stats_input_view_shape_impl): OverTensorView()
+              (stats): _Stats(
+                (stats_impl): AbsPercentile()
+              )
+              (abs_value): _AbsValue(
+                (apply_abs): Abs()
+              )
+              (restrict_scaling): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_threshold): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_scale_threshold): _RestrictValue(
+                (restrict_value_impl): Identity()
+              )
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+              (restrict_inplace_preprocess): Identity()
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+            )
+            (int_scaling_impl): IntScaling()
+            (zero_point_impl): ZeroZeroPoint(
+              (zero_point): StatelessBuffer()
+            )
+            (msb_clamp_bit_width_impl): BitWidthConst(
+              (bit_width): StatelessBuffer()
+            )
+          )
+        )
+      )
+    )
+  )
+  (upsampler): PixelShuffle(upscale_factor=2)
+)
+[DIV2K-X2], PSNR/SSIM: 8.21/0.1119 (Best: 8.21/0.1119, Epoch: 1/1)
+
+[DIV2K-X2], PSNR/SSIM: 20.88/0.8086 (Best: 20.88/0.8086, Epoch: 2/2)
+
+[DIV2K-X2], PSNR/SSIM: 26.27/0.8745 (Best: 26.27/0.8745, Epoch: 3/3)
+
+[DIV2K-X2], PSNR/SSIM: 29.85/0.8965 (Best: 29.85/0.8965, Epoch: 4/4)
+
+[DIV2K-X2], PSNR/SSIM: 31.42/0.9044 (Best: 31.42/0.9044, Epoch: 5/5)
+
+[DIV2K-X2], PSNR/SSIM: 31.63/0.9040 (Best: 31.63/0.9044, Epoch: 6/5)
+
+[DIV2K-X2], PSNR/SSIM: 31.81/0.9071 (Best: 31.81/0.9071, Epoch: 7/7)
+
+[DIV2K-X2], PSNR/SSIM: 31.91/0.9104 (Best: 31.91/0.9104, Epoch: 8/8)
+
+[DIV2K-X2], PSNR/SSIM: 32.06/0.9108 (Best: 32.06/0.9108, Epoch: 9/9)
+
+[DIV2K-X2], PSNR/SSIM: 32.18/0.9131 (Best: 32.18/0.9131, Epoch: 10/10)
+
+[DIV2K-X2], PSNR/SSIM: 32.29/0.9134 (Best: 32.29/0.9134, Epoch: 11/11)
+
+[DIV2K-X2], PSNR/SSIM: 32.23/0.9117 (Best: 32.29/0.9134, Epoch: 11/11)
+
+[DIV2K-X2], PSNR/SSIM: 32.42/0.9146 (Best: 32.42/0.9146, Epoch: 13/13)
+
+[DIV2K-X2], PSNR/SSIM: 32.51/0.9151 (Best: 32.51/0.9151, Epoch: 14/14)
+
+[DIV2K-X2], PSNR/SSIM: 32.49/0.9149 (Best: 32.51/0.9151, Epoch: 14/14)
+
+[DIV2K-X2], PSNR/SSIM: 32.70/0.9192 (Best: 32.70/0.9192, Epoch: 16/16)
+
+[DIV2K-X2], PSNR/SSIM: 32.72/0.9190 (Best: 32.72/0.9192, Epoch: 17/16)
+
+[DIV2K-X2], PSNR/SSIM: 32.81/0.9199 (Best: 32.81/0.9199, Epoch: 18/18)
+
+[DIV2K-X2], PSNR/SSIM: 32.89/0.9207 (Best: 32.89/0.9207, Epoch: 19/19)
+
+[DIV2K-X2], PSNR/SSIM: 32.95/0.9212 (Best: 32.95/0.9212, Epoch: 20/20)
+
+[DIV2K-X2], PSNR/SSIM: 32.95/0.9214 (Best: 32.95/0.9214, Epoch: 20/21)
+
+[DIV2K-X2], PSNR/SSIM: 32.91/0.9211 (Best: 32.95/0.9214, Epoch: 20/21)
+
+[DIV2K-X2], PSNR/SSIM: 33.00/0.9223 (Best: 33.00/0.9223, Epoch: 23/23)
+
+[DIV2K-X2], PSNR/SSIM: 32.93/0.9210 (Best: 33.00/0.9223, Epoch: 23/23)
+
+[DIV2K-X2], PSNR/SSIM: 32.91/0.9215 (Best: 33.00/0.9223, Epoch: 23/23)
+
+[DIV2K-X2], PSNR/SSIM: 33.07/0.9218 (Best: 33.07/0.9223, Epoch: 26/23)
+
+[DIV2K-X2], PSNR/SSIM: 32.97/0.9216 (Best: 33.07/0.9223, Epoch: 26/23)
+
+[DIV2K-X2], PSNR/SSIM: 32.98/0.9219 (Best: 33.07/0.9223, Epoch: 26/23)
+
+[DIV2K-X2], PSNR/SSIM: 33.07/0.9223 (Best: 33.07/0.9223, Epoch: 26/23)
+
+[DIV2K-X2], PSNR/SSIM: 33.07/0.9240 (Best: 33.07/0.9240, Epoch: 26/30)
+
+[DIV2K-X2], PSNR/SSIM: 33.06/0.9232 (Best: 33.07/0.9240, Epoch: 26/30)
+
+[DIV2K-X2], PSNR/SSIM: 33.09/0.9235 (Best: 33.09/0.9240, Epoch: 32/30)
+
+[DIV2K-X2], PSNR/SSIM: 33.03/0.9233 (Best: 33.09/0.9240, Epoch: 32/30)
+
+[DIV2K-X2], PSNR/SSIM: 33.00/0.9235 (Best: 33.09/0.9240, Epoch: 32/30)
+
+[DIV2K-X2], PSNR/SSIM: 33.16/0.9243 (Best: 33.16/0.9243, Epoch: 35/35)
+
+[DIV2K-X2], PSNR/SSIM: 33.24/0.9247 (Best: 33.24/0.9247, Epoch: 36/36)
+
+[DIV2K-X2], PSNR/SSIM: 33.22/0.9238 (Best: 33.24/0.9247, Epoch: 36/36)
+
+[DIV2K-X2], PSNR/SSIM: 32.97/0.9249 (Best: 33.24/0.9249, Epoch: 36/38)
+
+[DIV2K-X2], PSNR/SSIM: 33.13/0.9234 (Best: 33.24/0.9249, Epoch: 36/38)
+
+[DIV2K-X2], PSNR/SSIM: 33.19/0.9241 (Best: 33.24/0.9249, Epoch: 36/38)
+
+[DIV2K-X2], PSNR/SSIM: 33.30/0.9253 (Best: 33.30/0.9253, Epoch: 41/41)
+
+[DIV2K-X2], PSNR/SSIM: 33.32/0.9254 (Best: 33.32/0.9254, Epoch: 42/42)
+
+[DIV2K-X2], PSNR/SSIM: 32.93/0.9246 (Best: 33.32/0.9254, Epoch: 42/42)
+
+[DIV2K-X2], PSNR/SSIM: 33.22/0.9241 (Best: 33.32/0.9254, Epoch: 42/42)
+
+[DIV2K-X2], PSNR/SSIM: 33.24/0.9255 (Best: 33.32/0.9255, Epoch: 42/45)
+
+[DIV2K-X2], PSNR/SSIM: 33.33/0.9249 (Best: 33.33/0.9255, Epoch: 46/45)
+
+[DIV2K-X2], PSNR/SSIM: 33.33/0.9254 (Best: 33.33/0.9255, Epoch: 46/45)
+
+[DIV2K-X2], PSNR/SSIM: 33.27/0.9253 (Best: 33.33/0.9255, Epoch: 46/45)
+
+[DIV2K-X2], PSNR/SSIM: 33.13/0.9248 (Best: 33.33/0.9255, Epoch: 46/45)
+
+[DIV2K-X2], PSNR/SSIM: 33.29/0.9253 (Best: 33.33/0.9255, Epoch: 46/45)
+
+[DIV2K-X2], PSNR/SSIM: 33.26/0.9260 (Best: 33.33/0.9260, Epoch: 46/51)
+
+[DIV2K-X2], PSNR/SSIM: 33.34/0.9260 (Best: 33.34/0.9260, Epoch: 52/51)
+
+[DIV2K-X2], PSNR/SSIM: 33.39/0.9262 (Best: 33.39/0.9262, Epoch: 53/53)
+
+[DIV2K-X2], PSNR/SSIM: 33.33/0.9255 (Best: 33.39/0.9262, Epoch: 53/53)
+
+[DIV2K-X2], PSNR/SSIM: 33.27/0.9256 (Best: 33.39/0.9262, Epoch: 53/53)
+
+[DIV2K-X2], PSNR/SSIM: 33.38/0.9261 (Best: 33.39/0.9262, Epoch: 53/53)
+
+[DIV2K-X2], PSNR/SSIM: 33.33/0.9261 (Best: 33.39/0.9262, Epoch: 53/53)
+
+[DIV2K-X2], PSNR/SSIM: 32.90/0.9261 (Best: 33.39/0.9262, Epoch: 53/53)
+
+[DIV2K-X2], PSNR/SSIM: 33.35/0.9260 (Best: 33.39/0.9262, Epoch: 53/53)
+
+[DIV2K-X2], PSNR/SSIM: 33.38/0.9265 (Best: 33.39/0.9265, Epoch: 53/60)
+
+[DIV2K-X2], PSNR/SSIM: 33.24/0.9254 (Best: 33.39/0.9265, Epoch: 53/60)
+
+[DIV2K-X2], PSNR/SSIM: 33.30/0.9263 (Best: 33.39/0.9265, Epoch: 53/60)
+
+[DIV2K-X2], PSNR/SSIM: 33.05/0.9261 (Best: 33.39/0.9265, Epoch: 53/60)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9265 (Best: 33.43/0.9265, Epoch: 64/60)
+
+[DIV2K-X2], PSNR/SSIM: 33.34/0.9254 (Best: 33.43/0.9265, Epoch: 64/60)
+
+[DIV2K-X2], PSNR/SSIM: 33.23/0.9258 (Best: 33.43/0.9265, Epoch: 64/60)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9267 (Best: 33.47/0.9267, Epoch: 67/67)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9266 (Best: 33.47/0.9267, Epoch: 67/67)
+
+[DIV2K-X2], PSNR/SSIM: 33.34/0.9269 (Best: 33.47/0.9269, Epoch: 67/69)
+
+[DIV2K-X2], PSNR/SSIM: 33.25/0.9264 (Best: 33.47/0.9269, Epoch: 67/69)
+
+[DIV2K-X2], PSNR/SSIM: 33.37/0.9264 (Best: 33.47/0.9269, Epoch: 67/69)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9268 (Best: 33.47/0.9269, Epoch: 67/69)
+
+[DIV2K-X2], PSNR/SSIM: 33.36/0.9271 (Best: 33.47/0.9271, Epoch: 67/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9270 (Best: 33.50/0.9271, Epoch: 74/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9264 (Best: 33.50/0.9271, Epoch: 74/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.30/0.9267 (Best: 33.50/0.9271, Epoch: 74/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.31/0.9259 (Best: 33.50/0.9271, Epoch: 74/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.38/0.9269 (Best: 33.50/0.9271, Epoch: 74/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.37/0.9269 (Best: 33.50/0.9271, Epoch: 74/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9268 (Best: 33.50/0.9271, Epoch: 74/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.32/0.9251 (Best: 33.50/0.9271, Epoch: 74/73)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9273 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9273 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9261 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.45/0.9271 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 32.65/0.9222 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.42/0.9267 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9273 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.48/0.9273 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.23/0.9267 (Best: 33.51/0.9273, Epoch: 82/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9273 (Best: 33.52/0.9273, Epoch: 91/82)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9275 (Best: 33.52/0.9275, Epoch: 91/92)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9270 (Best: 33.52/0.9275, Epoch: 91/92)
+
+[DIV2K-X2], PSNR/SSIM: 33.17/0.9265 (Best: 33.52/0.9275, Epoch: 91/92)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9276 (Best: 33.52/0.9276, Epoch: 91/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9272 (Best: 33.52/0.9276, Epoch: 91/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.36/0.9265 (Best: 33.52/0.9276, Epoch: 91/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9274 (Best: 33.52/0.9276, Epoch: 91/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9274 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.19/0.9266 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.31/0.9272 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.04/0.9270 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9273 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.39/0.9275 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.14/0.9275 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9276 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9276 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9275 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.32/0.9266 (Best: 33.53/0.9276, Epoch: 99/95)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9277 (Best: 33.53/0.9277, Epoch: 99/110)
+
+[DIV2K-X2], PSNR/SSIM: 33.36/0.9277 (Best: 33.53/0.9277, Epoch: 99/110)
+
+[DIV2K-X2], PSNR/SSIM: 33.48/0.9278 (Best: 33.53/0.9278, Epoch: 99/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9276 (Best: 33.53/0.9278, Epoch: 99/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9276 (Best: 33.53/0.9278, Epoch: 99/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.26/0.9270 (Best: 33.53/0.9278, Epoch: 99/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9278 (Best: 33.53/0.9278, Epoch: 99/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9275 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9277 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9275 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9275 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.33/0.9273 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.32/0.9270 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9278 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9277 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9276 (Best: 33.55/0.9278, Epoch: 117/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9278 (Best: 33.58/0.9278, Epoch: 126/112)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9279 (Best: 33.58/0.9279, Epoch: 126/127)
+
+[DIV2K-X2], PSNR/SSIM: 33.40/0.9277 (Best: 33.58/0.9279, Epoch: 126/127)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9278 (Best: 33.58/0.9279, Epoch: 126/127)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9277 (Best: 33.58/0.9279, Epoch: 126/127)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9275 (Best: 33.58/0.9279, Epoch: 126/127)
+
+[DIV2K-X2], PSNR/SSIM: 33.42/0.9280 (Best: 33.58/0.9280, Epoch: 126/132)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9277 (Best: 33.58/0.9280, Epoch: 126/132)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9281 (Best: 33.58/0.9281, Epoch: 126/134)
+
+[DIV2K-X2], PSNR/SSIM: 33.26/0.9275 (Best: 33.58/0.9281, Epoch: 126/134)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9281 (Best: 33.58/0.9281, Epoch: 126/134)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9277 (Best: 33.58/0.9281, Epoch: 126/134)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9280 (Best: 33.58/0.9281, Epoch: 126/134)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9280 (Best: 33.58/0.9281, Epoch: 126/134)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9282 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9279 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9279 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9278 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9276 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9282 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9281 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9282 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9281 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9281 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9281 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9281 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9280 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9281 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9281 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9281 (Best: 33.58/0.9282, Epoch: 126/140)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9283 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9282 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9281 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9282 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9282 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9277 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.27/0.9278 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9268 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9271 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9273 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.26/0.9273 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9278 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9276 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9274 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9278 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.30/0.9276 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9277 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.33/0.9266 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9278 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9273 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.48/0.9272 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9281 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9276 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9265 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9277 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.30/0.9276 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9274 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9280 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9274 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9280 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.45/0.9270 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.39/0.9269 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9277 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9278 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9280 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9278 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9273 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9275 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9276 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9280 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9277 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.48/0.9278 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9278 (Best: 33.59/0.9283, Epoch: 156/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9282 (Best: 33.61/0.9283, Epoch: 199/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9278 (Best: 33.61/0.9283, Epoch: 199/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9280 (Best: 33.61/0.9283, Epoch: 199/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9271 (Best: 33.61/0.9283, Epoch: 199/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9278 (Best: 33.61/0.9283, Epoch: 199/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9278 (Best: 33.61/0.9283, Epoch: 199/156)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9284 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9278 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9277 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9283 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9280 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.34/0.9275 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9279 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9281 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9283 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.31/0.9282 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9278 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9280 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9281 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.22/0.9271 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9280 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9281 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9277 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9281 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9281 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9274 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9280 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9281 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9283 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9282 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9280 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9284 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9283 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9281 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9284 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9283 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9274 (Best: 33.62/0.9284, Epoch: 205/205)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9285 (Best: 33.62/0.9285, Epoch: 205/236)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9283 (Best: 33.62/0.9285, Epoch: 205/236)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9283 (Best: 33.62/0.9285, Epoch: 205/236)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9284 (Best: 33.62/0.9285, Epoch: 205/236)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9278 (Best: 33.62/0.9285, Epoch: 205/236)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9285 (Best: 33.62/0.9285, Epoch: 205/236)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9286 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.30/0.9279 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9283 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9282 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9280 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9286 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9281 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9282 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.36/0.9279 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9284 (Best: 33.62/0.9286, Epoch: 205/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9286 (Best: 33.64/0.9286, Epoch: 252/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9286 (Best: 33.64/0.9286, Epoch: 252/242)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9287 (Best: 33.65/0.9287, Epoch: 254/254)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9281 (Best: 33.65/0.9287, Epoch: 254/254)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9284 (Best: 33.65/0.9287, Epoch: 254/254)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9284 (Best: 33.65/0.9287, Epoch: 254/254)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9288 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.48/0.9279 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9287 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9278 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9282 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9284 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9285 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9286 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.32/0.9278 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9283 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9288 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9284 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9284 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9283 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.45/0.9280 (Best: 33.67/0.9288, Epoch: 258/258)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9289 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9284 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9283 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9283 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.39/0.9282 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9288 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9288 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.40/0.9283 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9283 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9286 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9287 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9287 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9282 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9286 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9284 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9284 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9287 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9285 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9289 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9287 (Best: 33.67/0.9289, Epoch: 258/273)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9290 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9290 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9287 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9287 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9289 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9287 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9287 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9290 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9289 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9289 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9288 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9289 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.67/0.9290, Epoch: 258/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9290 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9283 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.27/0.9277 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.40/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.33/0.9280 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.45/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9285 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9288 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.34/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.15/0.9275 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.34/0.9280 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9285 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.34/0.9273 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9279 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9285 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9285 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9283 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9288 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9283 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9288 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9281 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9285 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9288 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9283 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9274 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.45/0.9281 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9288 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9283 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9288 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9288 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.28/0.9282 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9286 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9284 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9289 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9285 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9287 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9290 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.40/0.9281 (Best: 33.68/0.9290, Epoch: 316/293)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9286 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9287 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9288 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9288 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.40/0.9282 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9288 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9290 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.39/0.9283 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9286 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9288 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9288 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9290 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.52/0.9288 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9286 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9286 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9284 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9290 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9288 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9285 (Best: 33.68/0.9291, Epoch: 316/404)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.69/0.9292, Epoch: 433/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9289 (Best: 33.69/0.9292, Epoch: 433/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9289 (Best: 33.69/0.9292, Epoch: 433/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9291 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9287 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9289 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9290 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9289 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9285 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9288 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9289 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9291 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9290 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9287 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9289 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9289 (Best: 33.70/0.9292, Epoch: 436/433)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.39/0.9282 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9286 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9284 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9284 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9280 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9284 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.44/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9283 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.46/0.9285 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.41/0.9284 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.48/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.47/0.9284 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.45/0.9286 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9286 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9284 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.43/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.40/0.9286 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.49/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.45/0.9281 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.42/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9287 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.50/0.9288 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9286 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9290 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.70/0.9293, Epoch: 436/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9290 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9291 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9290 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9292 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9291 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9288 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9290 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9291 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9290 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9291 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9290 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9292 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9292 (Best: 33.71/0.9293, Epoch: 589/451)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9294 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9294 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9294 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.56/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9292 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.51/0.9288 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.58/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9289 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9290 (Best: 33.71/0.9294, Epoch: 589/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9294 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9289 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9290 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9290 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9287 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9294 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.54/0.9290 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9290 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9290 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.55/0.9289 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.53/0.9288 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9293 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9287 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9289 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9290 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9289 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.57/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9290 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9289 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9294 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9290 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9294 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9293 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9293 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9292 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9291 (Best: 33.72/0.9294, Epoch: 688/609)
+
+[DIV2K-X2], PSNR/SSIM: 33.73/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9290 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.73/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.59/0.9289 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.61/0.9291 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.73/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.64/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.60/0.9291 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9291 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.69/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.62/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.66/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.73/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.68/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.70/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.63/0.9291 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.71/0.9294 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.67/0.9293 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.72/0.9295 (Best: 33.73/0.9295, Epoch: 739/739)
+
+[DIV2K-X2], PSNR/SSIM: 33.65/0.9292 (Best: 33.73/0.9295, Epoch: 739/739)
+

@@ -1,0 +1,1723 @@
+QuantPlainRepConv(
+  (head): QuantConv3X3(
+    (quant_in): QuantIdentity(
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (act_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (fused_activation_quant_proxy): FusedActivationQuantProxy(
+          (activation_impl): Identity()
+          (tensor_quant): RescalingIntQuant(
+            (int_quant): IntQuant(
+              (float_to_int_impl): RoundSte()
+              (tensor_clamp_impl): TensorClamp()
+              (delay_wrapper): DelayWrapper(
+                (delay_impl): _NoDelay()
+              )
+              (input_view_impl): Identity()
+            )
+            (scaling_impl): ParameterFromRuntimeStatsScaling(
+              (stats_input_view_shape_impl): OverTensorView()
+              (stats): _Stats(
+                (stats_impl): AbsPercentile()
+              )
+              (abs_value): _AbsValue(
+                (apply_abs): Abs()
+              )
+              (restrict_scaling): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_threshold): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_scale_threshold): _RestrictValue(
+                (restrict_value_impl): Identity()
+              )
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+              (restrict_inplace_preprocess): Identity()
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+            )
+            (int_scaling_impl): IntScaling()
+            (zero_point_impl): ZeroZeroPoint(
+              (zero_point): StatelessBuffer()
+            )
+            (msb_clamp_bit_width_impl): BitWidthConst(
+              (bit_width): StatelessBuffer()
+            )
+          )
+        )
+      )
+    )
+    (conv): QuantConv2d(
+      3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (output_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (weight_quant): WeightQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (tensor_quant): RescalingIntQuant(
+          (int_quant): IntQuant(
+            (float_to_int_impl): RoundSte()
+            (tensor_clamp_impl): TensorClampSte()
+            (delay_wrapper): DelayWrapper(
+              (delay_impl): _NoDelay()
+            )
+            (input_view_impl): Identity()
+          )
+          (scaling_impl): StatsFromParameterScaling(
+            (parameter_list_stats): _ParameterListStats(
+              (first_tracked_param): _ViewParameter(
+                (view_shape_impl): OverTensorView()
+              )
+              (stats): _Stats(
+                (stats_impl): AbsMax()
+              )
+            )
+            (stats_scaling_impl): _StatsScaling(
+              (affine_rescaling): Identity()
+              (restrict_clamp_scaling): _RestrictClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+                (restrict_value_impl): FloatRestrictValue()
+                (apply_abs): Abs()
+              )
+              (restrict_clamp_threshold): _RestrictClampValue(
+                (clamp_min_ste): Identity()
+                (restrict_value_impl): FloatRestrictValue()
+                (apply_abs): Abs()
+              )
+              (restrict_clamp_scale_threshold): _RestrictClampValue(
+                (clamp_min_ste): Identity()
+                (restrict_value_impl): Identity()
+                (apply_abs): Abs()
+              )
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+            )
+          )
+          (int_scaling_impl): IntScaling()
+          (zero_point_impl): ZeroZeroPoint(
+            (zero_point): StatelessBuffer()
+          )
+          (msb_clamp_bit_width_impl): BitWidthConst(
+            (bit_width): StatelessBuffer()
+          )
+        )
+      )
+      (bias_quant): BiasQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+    )
+    (act): QuantReLU(
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (act_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (fused_activation_quant_proxy): FusedActivationQuantProxy(
+          (activation_impl): ReLU()
+          (tensor_quant): RescalingIntQuant(
+            (int_quant): IntQuant(
+              (float_to_int_impl): RoundSte()
+              (tensor_clamp_impl): TensorClamp()
+              (delay_wrapper): DelayWrapper(
+                (delay_impl): _NoDelay()
+              )
+              (input_view_impl): Identity()
+            )
+            (scaling_impl): ParameterFromRuntimeStatsScaling(
+              (stats_input_view_shape_impl): OverTensorView()
+              (stats): _Stats(
+                (stats_impl): AbsPercentile()
+              )
+              (abs_value): _AbsValue(
+                (apply_abs): Abs()
+              )
+              (restrict_scaling): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_threshold): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_scale_threshold): _RestrictValue(
+                (restrict_value_impl): Identity()
+              )
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+              (restrict_inplace_preprocess): Identity()
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+            )
+            (int_scaling_impl): IntScaling()
+            (zero_point_impl): ZeroZeroPoint(
+              (zero_point): StatelessBuffer()
+            )
+            (msb_clamp_bit_width_impl): BitWidthConst(
+              (bit_width): StatelessBuffer()
+            )
+          )
+        )
+      )
+    )
+  )
+  (backbone): Sequential(
+    (0): Sequential(
+      (0): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+      (1): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    (1): Sequential(
+      (0): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+      (1): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    (2): Sequential(
+      (0): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+      (1): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    (3): Sequential(
+      (0): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+      (1): QuantConv3X3(
+        (quant_in): QuantIdentity(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): Identity()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+        (conv): QuantConv2d(
+          32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (output_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (weight_quant): WeightQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (tensor_quant): RescalingIntQuant(
+              (int_quant): IntQuant(
+                (float_to_int_impl): RoundSte()
+                (tensor_clamp_impl): TensorClampSte()
+                (delay_wrapper): DelayWrapper(
+                  (delay_impl): _NoDelay()
+                )
+                (input_view_impl): Identity()
+              )
+              (scaling_impl): StatsFromParameterScaling(
+                (parameter_list_stats): _ParameterListStats(
+                  (first_tracked_param): _ViewParameter(
+                    (view_shape_impl): OverTensorView()
+                  )
+                  (stats): _Stats(
+                    (stats_impl): AbsMax()
+                  )
+                )
+                (stats_scaling_impl): _StatsScaling(
+                  (affine_rescaling): Identity()
+                  (restrict_clamp_scaling): _RestrictClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): FloatRestrictValue()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_clamp_scale_threshold): _RestrictClampValue(
+                    (clamp_min_ste): Identity()
+                    (restrict_value_impl): Identity()
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                )
+              )
+              (int_scaling_impl): IntScaling()
+              (zero_point_impl): ZeroZeroPoint(
+                (zero_point): StatelessBuffer()
+              )
+              (msb_clamp_bit_width_impl): BitWidthConst(
+                (bit_width): StatelessBuffer()
+              )
+            )
+          )
+          (bias_quant): BiasQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+        )
+        (act): QuantReLU(
+          (input_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+          )
+          (act_quant): ActQuantProxyFromInjector(
+            (_zero_hw_sentinel): StatelessBuffer()
+            (fused_activation_quant_proxy): FusedActivationQuantProxy(
+              (activation_impl): ReLU()
+              (tensor_quant): RescalingIntQuant(
+                (int_quant): IntQuant(
+                  (float_to_int_impl): RoundSte()
+                  (tensor_clamp_impl): TensorClamp()
+                  (delay_wrapper): DelayWrapper(
+                    (delay_impl): _NoDelay()
+                  )
+                  (input_view_impl): Identity()
+                )
+                (scaling_impl): ParameterFromRuntimeStatsScaling(
+                  (stats_input_view_shape_impl): OverTensorView()
+                  (stats): _Stats(
+                    (stats_impl): AbsPercentile()
+                  )
+                  (abs_value): _AbsValue(
+                    (apply_abs): Abs()
+                  )
+                  (restrict_scaling): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_threshold): _RestrictValue(
+                    (restrict_value_impl): FloatRestrictValue()
+                  )
+                  (restrict_scale_threshold): _RestrictValue(
+                    (restrict_value_impl): Identity()
+                  )
+                  (clamp_scaling): _ClampValue(
+                    (clamp_min_ste): ScalarSignedClampMinSte()
+                  )
+                  (restrict_inplace_preprocess): Identity()
+                  (restrict_scaling_pre): Identity()
+                  (restrict_threshold_pre): Identity()
+                )
+                (int_scaling_impl): IntScaling()
+                (zero_point_impl): ZeroZeroPoint(
+                  (zero_point): StatelessBuffer()
+                )
+                (msb_clamp_bit_width_impl): BitWidthConst(
+                  (bit_width): StatelessBuffer()
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+  (transition): QuantConv3X3(
+    (quant_in): QuantIdentity(
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (act_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (fused_activation_quant_proxy): FusedActivationQuantProxy(
+          (activation_impl): Identity()
+          (tensor_quant): RescalingIntQuant(
+            (int_quant): IntQuant(
+              (float_to_int_impl): RoundSte()
+              (tensor_clamp_impl): TensorClamp()
+              (delay_wrapper): DelayWrapper(
+                (delay_impl): _NoDelay()
+              )
+              (input_view_impl): Identity()
+            )
+            (scaling_impl): ParameterFromRuntimeStatsScaling(
+              (stats_input_view_shape_impl): OverTensorView()
+              (stats): _Stats(
+                (stats_impl): AbsPercentile()
+              )
+              (abs_value): _AbsValue(
+                (apply_abs): Abs()
+              )
+              (restrict_scaling): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_threshold): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_scale_threshold): _RestrictValue(
+                (restrict_value_impl): Identity()
+              )
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+              (restrict_inplace_preprocess): Identity()
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+            )
+            (int_scaling_impl): IntScaling()
+            (zero_point_impl): ZeroZeroPoint(
+              (zero_point): StatelessBuffer()
+            )
+            (msb_clamp_bit_width_impl): BitWidthConst(
+              (bit_width): StatelessBuffer()
+            )
+          )
+        )
+      )
+    )
+    (conv): QuantConv2d(
+      32, 12, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (output_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (weight_quant): WeightQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (tensor_quant): RescalingIntQuant(
+          (int_quant): IntQuant(
+            (float_to_int_impl): RoundSte()
+            (tensor_clamp_impl): TensorClampSte()
+            (delay_wrapper): DelayWrapper(
+              (delay_impl): _NoDelay()
+            )
+            (input_view_impl): Identity()
+          )
+          (scaling_impl): StatsFromParameterScaling(
+            (parameter_list_stats): _ParameterListStats(
+              (first_tracked_param): _ViewParameter(
+                (view_shape_impl): OverTensorView()
+              )
+              (stats): _Stats(
+                (stats_impl): AbsMax()
+              )
+            )
+            (stats_scaling_impl): _StatsScaling(
+              (affine_rescaling): Identity()
+              (restrict_clamp_scaling): _RestrictClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+                (restrict_value_impl): FloatRestrictValue()
+                (apply_abs): Abs()
+              )
+              (restrict_clamp_threshold): _RestrictClampValue(
+                (clamp_min_ste): Identity()
+                (restrict_value_impl): FloatRestrictValue()
+                (apply_abs): Abs()
+              )
+              (restrict_clamp_scale_threshold): _RestrictClampValue(
+                (clamp_min_ste): Identity()
+                (restrict_value_impl): Identity()
+                (apply_abs): Abs()
+              )
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+            )
+          )
+          (int_scaling_impl): IntScaling()
+          (zero_point_impl): ZeroZeroPoint(
+            (zero_point): StatelessBuffer()
+          )
+          (msb_clamp_bit_width_impl): BitWidthConst(
+            (bit_width): StatelessBuffer()
+          )
+        )
+      )
+      (bias_quant): BiasQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+    )
+    (act): QuantReLU(
+      (input_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+      )
+      (act_quant): ActQuantProxyFromInjector(
+        (_zero_hw_sentinel): StatelessBuffer()
+        (fused_activation_quant_proxy): FusedActivationQuantProxy(
+          (activation_impl): ReLU()
+          (tensor_quant): RescalingIntQuant(
+            (int_quant): IntQuant(
+              (float_to_int_impl): RoundSte()
+              (tensor_clamp_impl): TensorClamp()
+              (delay_wrapper): DelayWrapper(
+                (delay_impl): _NoDelay()
+              )
+              (input_view_impl): Identity()
+            )
+            (scaling_impl): ParameterFromRuntimeStatsScaling(
+              (stats_input_view_shape_impl): OverTensorView()
+              (stats): _Stats(
+                (stats_impl): AbsPercentile()
+              )
+              (abs_value): _AbsValue(
+                (apply_abs): Abs()
+              )
+              (restrict_scaling): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_threshold): _RestrictValue(
+                (restrict_value_impl): FloatRestrictValue()
+              )
+              (restrict_scale_threshold): _RestrictValue(
+                (restrict_value_impl): Identity()
+              )
+              (clamp_scaling): _ClampValue(
+                (clamp_min_ste): ScalarSignedClampMinSte()
+              )
+              (restrict_inplace_preprocess): Identity()
+              (restrict_scaling_pre): Identity()
+              (restrict_threshold_pre): Identity()
+            )
+            (int_scaling_impl): IntScaling()
+            (zero_point_impl): ZeroZeroPoint(
+              (zero_point): StatelessBuffer()
+            )
+            (msb_clamp_bit_width_impl): BitWidthConst(
+              (bit_width): StatelessBuffer()
+            )
+          )
+        )
+      )
+    )
+  )
+  (upsampler): PixelShuffle(upscale_factor=2)
+)
