@@ -120,44 +120,6 @@ A Python script was created to export the QAT-trained quantized model to QONNX f
 
 **Status:** Framework setup completed; quantization workflow incomplete
 
-## Directory Structure
-
-```
-FPGA_SR_Project/
-├── README.md
-├── models/
-│   ├── baseline_fp32/
-│   │   └── checkpoint.pth
-│   ├── quantized_qat/
-│   │   └── checkpoint.pth
-│   └── exports/
-│       ├── model.onnx
-│       └── model_quantized.qonnx
-├── scripts/
-│   ├── train.py
-│   ├── validate.py
-│   ├── export_onnx.py
-│   ├── qat_train.py
-│   ├── export_qonnx.py
-│   └── fpga_inference.py
-├── datasets/
-│   ├── train/
-│   ├── val/
-│   └── test/
-├── finn/
-│   ├── build.py
-│   ├── config.yml
-│   └── build_logs/
-├── vitis_ai/
-│   ├── quantize.py
-│   ├── compile.py
-│   └── build_logs/
-└── results/
-    ├── baseline_metrics.csv
-    ├── quantized_metrics.csv
-    └── comparison_analysis.md
-```
-
 ## Model Details
 
 ### LRSRNN Architecture
